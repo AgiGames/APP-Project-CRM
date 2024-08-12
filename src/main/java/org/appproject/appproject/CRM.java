@@ -1,23 +1,44 @@
 package org.appproject.appproject;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Scanner;
 
-public class CRM extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(CRM.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
-    }
+class CRM {
 
     public static void main(String[] args) {
-        launch();
+
+        ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
+        Scanner mainScanner = new Scanner(System.in);
+        System.out.println("WELCOME");
+        int choice = 0;
+        while(choice != 3) {
+            System.out.println("PRESS 1 TO LOGIN | 2 TO REGISTER | 3 TO EXIT");
+            choice = mainScanner.nextInt();
+            mainScanner.nextLine();
+            switch(choice){
+                case 1:
+                    boolean successfulLogin = UserAuthenticator.login();
+                    if(!successfulLogin)
+                        System.out.println("Bad Credentials");
+                    else
+                        System.out.println("Login Successful!");
+                    break;
+                case 2:
+                    UserAuthenticator.register();
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
-}
+
+};
