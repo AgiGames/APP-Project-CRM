@@ -15,6 +15,7 @@ module org.appproject.appproject {
     requires org.mongodb.driver.core;
     requires logback.classic;
     requires slf4j.api;
+    requires org.json;
 
     opens org.appproject.appproject to javafx.fxml;
     exports org.appproject.appproject;

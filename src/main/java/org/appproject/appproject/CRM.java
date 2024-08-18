@@ -7,38 +7,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.Scanner;
+
+/*
+    USE THE FOLLOWING LINE IF YOU ARE GOING TO USE MongoDB FOR ANY PURPOSE:
+    ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
+*/
 
 class CRM {
 
     public static void main(String[] args) {
 
-        ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
-        Scanner mainScanner = new Scanner(System.in);
-        System.out.println("WELCOME");
-        int choice = 0;
-        while(choice != 3) {
-            System.out.println("PRESS 1 TO LOGIN | 2 TO REGISTER | 3 TO EXIT");
-            choice = mainScanner.nextInt();
-            mainScanner.nextLine();
-            switch(choice){
-                case 1:
-                    boolean successfulLogin = UserAuthenticator.login();
-                    if(!successfulLogin)
-                        System.out.println("Bad Credentials");
-                    else
-                        System.out.println("Login Successful!");
-                    break;
-                case 2:
-                    UserAuthenticator.register();
-                    break;
-                default:
-                    break;
-            }
-        }
+        boolean authenticationComplete = UserInputs.loginOrRegister();
+        // use the above boolean variable for calling more the homePage() function
+        // to be implemented in the future
 
     }
 
-};
+}
