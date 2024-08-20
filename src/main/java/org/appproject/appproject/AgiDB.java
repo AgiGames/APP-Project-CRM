@@ -32,6 +32,27 @@ public class AgiDB {
         databasePath = DBPath;
         collectionName = CName;
 
+        // following block of code is to make the collection in the given path, if it doesn't exist
+        File collectionDirectory = new File(databasePath + "\\" + collectionName + "\\");
+        // Check if the directory doesn't exist
+        if (!collectionDirectory.exists()) {
+            // Create the directory
+            if (collectionDirectory.mkdirs()) {
+                System.out.println("Directory '" + collectionDirectory + "' created successfully!");
+                // make the options.txt file and write 0 as the currentDocumentID
+                try (FileWriter writer = new FileWriter(databasePath + "\\" + collectionName + "\\" + "options.txt")) {
+                    writer.write("0\n");
+                } catch (IOException e) {
+                    System.out.println("An error occurred making options.txt");
+                    //e.printStackTrace();
+                }
+            } else {
+                System.out.println("Failed to create directory '" + collectionDirectory + "'.");
+            }
+        } else {
+            System.out.println("Directory '" + collectionDirectory + "' already exists.");
+        }
+
         /*
             the following block of code is to retrieve the currentDocumentId from options.txt file
             this is stored in the text file to prevent overwriting of data already existing

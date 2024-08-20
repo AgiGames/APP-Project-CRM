@@ -56,7 +56,7 @@ public class UserAuthenticator {
     implementation of the login() function
     called in the UserInputs loginOrRegister() function
 */
-    public static boolean login(){
+    public static int login(){
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter username: ");
@@ -78,7 +78,11 @@ public class UserAuthenticator {
         */
         JSONDocument[] relevantUsers = userAuthenticationCollection.read(queryDocument);
 
-        return (relevantUsers.length > 0);
+        if (relevantUsers.length == 0)
+            return 0;
+        if (relevantUsers[0].getValue("role").equals("user"))
+            return 1;
+        return 2;
 
     }
 

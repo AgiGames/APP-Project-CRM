@@ -6,44 +6,49 @@ import java.util.Scanner;
     class to handle user inputs
 
     functions implemented so far (backend):
-    -> loginOrRegister()
+    -> login()
 
-    functions to implement (backend):
-    -> homePage()
+    functions to implement (backend & frontend):
+    -> userHomePage()
+    -> adminHomePage()
     -> viewStudentDirectory()
 */
 public class UserInputs {
 
     /*
         function to show prompt for login with existing account or registering account
-        returns true only if login is successful
-        therefore, returns false if register function is called
+        returns status of login, based on if user is admin or user
     */
-    static boolean loginOrRegister() {
+    static int login() {
 
         Scanner mainScanner = new Scanner(System.in);
         System.out.println("WELCOME");
         int choice = 0; // variable to store user choice
-        while (choice != 3) {
-            System.out.println("PRESS 1 TO LOGIN | 2 TO REGISTER | 3 TO EXIT");
+        int loginStatus = 0;
+        while (choice != 2) {
+            System.out.println("PRESS 1 TO LOGIN | 2 TO EXIT");
             choice = mainScanner.nextInt();
             mainScanner.nextLine();
-            switch (choice) {
-                case 1:
-                    // calling the login() function from UserAuthenticator class
-                    boolean successfulLogin = UserAuthenticator.login();
-                    if (!successfulLogin)
-                        System.out.println("Bad Credentials");
-                    else
-                        System.out.println("Login Successful!");
-                    return successfulLogin;
-                case 2:
-                    // calling the register() function from UserAuthenticator class
-                    UserAuthenticator.register();
-                    return false;
+            if (choice == 1) { // calling the login() function from UserAuthenticator class
+                loginStatus = UserAuthenticator.login();
+                if (loginStatus == 0)
+                    System.out.println("Bad Credentials");
+                else {
+                    System.out.println("Login Successful!");
+                    break;
+                }
+
             }
         }
-        return false;
+        return loginStatus;
+
+    }
+
+    static void userHomePage() {
+
+    }
+
+    static void adminHomePage() {
 
     }
 

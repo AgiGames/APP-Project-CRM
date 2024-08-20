@@ -19,9 +19,17 @@ class CRM {
 
     public static void main(String[] args) {
 
-        boolean authenticationComplete = UserInputs.loginOrRegister();
-        // use the above boolean variable for calling more the homePage() function
-        // to be implemented in the future
+        int authenticationStatus = UserInputs.login();
+        switch (authenticationStatus) {
+            case 1:
+                UserInputs.userHomePage();
+                break;
+            case 2:
+                UserInputs.adminHomePage();
+                break;
+            default:
+                break;
+        }
 
     }
 
