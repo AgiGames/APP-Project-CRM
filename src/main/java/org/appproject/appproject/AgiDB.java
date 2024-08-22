@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.*;
 
 
 // class that represents a collection of data in the database
@@ -238,5 +240,79 @@ public class AgiDB {
         return jsonArray;
 
     }
+
+    /*
+        function to create an empty collection (directory)
+        with the database path and collection name
+    */
+    public boolean createDirectory() {
+
+        File collectionDirectory = new File(databasePath + "\\" + collectionName + "\\");
+        if (!collectionDirectory.exists()) {
+            return collectionDirectory.mkdirs();
+        }
+        return false;
+
+    }
+
+    /*
+        function to delete a collection (directory)
+        with the database path and collection name
+    */
+    public boolean deleteDirectory() {
+
+        Path directory = Paths.get(databasePath + "\\" + collectionName);
+
+        /*
+            basically visits each file and deletes them before deleting them
+            the author of this code (Agilesh) doesn't know how exactly it works as he took it from ChatGPT :D
+        */
+        try {
+            Files.walkFileTree(directory, new SimpleFileVisitor<>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file); // Delete each file
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    Files.delete(dir); // Delete directory after contents are deleted
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+
+            return true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
+
+    /*
+        function to display the contents of the collection
+    */
+    public void displayDirectory() {
+
+        File directory = new File(databasePath + "\\" + collectionName);
+
+        // if the directory exists and the given path in fact leads to a directory
+        if (directory.exists() && directory.isDirectory()) {
+            String[] contents = directory.list(); // get all contents of the directory
+
+            if (contents != null) { // if the contents array is not empty
+                for (String item : contents) { // print each item
+                    System.out.println(item);
+                }
+            } else {
+                System.out.println("Failed to retrieve directory contents.");
+            }
+        } else {
+            System.out.println("Directory does not exist or is not a directory.");
+        }
+
+    }
+
 
 }

@@ -1,5 +1,9 @@
 package org.appproject.appproject;
 
+// use this when implementing logging functions
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
 
 public class UserAuthenticator {
@@ -9,7 +13,10 @@ public class UserAuthenticator {
         giving it arguments for the database path and collection directory name
         only using this object can we send queries to the database
     */
-    private static final AgiDB userAuthenticationCollection = new AgiDB("D:\\Education\\Java\\IntelliJProjects\\APP-Project\\database", "userAuthentication");
+    private static final AgiDB userAuthenticationCollection = new AgiDB(CRM.localDatabasePath, "userAuthentication");
+
+    // use this when implementing logging functions
+    // private static final Logger log = LoggerFactory.getLogger(UserAuthenticator.class);
 
     private static String username = "";
     private static String password = "";
@@ -58,11 +65,11 @@ public class UserAuthenticator {
 */
     public static int login(){
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner loginScanner = new Scanner(System.in);
         System.out.print("Enter username: ");
-        username = scanner.nextLine();
+        username = loginScanner.nextLine();
         System.out.print("Enter your password: ");
-        password = scanner.nextLine();
+        password = loginScanner.nextLine();
 
         /*
             making a query document (JSON) to query to the database
@@ -83,6 +90,12 @@ public class UserAuthenticator {
         if (relevantUsers[0].getValue("role").equals("user"))
             return 1;
         return 2;
+
+    }
+
+    public static String getUserName() {
+
+        return username;
 
     }
 
