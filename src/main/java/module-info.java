@@ -10,6 +10,12 @@ module org.appproject.appproject {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires org.mongodb.driver.sync.client;
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.core;
+    requires logback.classic;
+    requires slf4j.api;
+    requires org.json;
 
     opens org.appproject.appproject to javafx.fxml;
     exports org.appproject.appproject;

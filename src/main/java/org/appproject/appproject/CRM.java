@@ -1,23 +1,31 @@
 package org.appproject.appproject;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+/*
+    USE THE FOLLOWING LINE IF YOU ARE GOING TO USE MongoDB FOR ANY PURPOSE:
+    ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
+*/
 
-import java.io.IOException;
+class CRM {
 
-public class CRM extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(CRM.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
-    }
+    // path to the local database
+    public static String localDatabasePath = "D:\\Education\\Java\\IntelliJProjects\\APP-Project\\database";
 
     public static void main(String[] args) {
-        launch();
+
+        UserInputs userInput = new UserInputs();
+
+        int authenticationStatus = userInput.login();
+        switch (authenticationStatus) {
+            case 1:
+                userInput.userHomePage();
+                break;
+            case 2:
+                userInput.adminHomePage();
+                break;
+            default:
+                break;
+        }
+
     }
+
 }

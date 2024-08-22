@@ -24,6 +24,16 @@
       <artifactId>javafx-fxml</artifactId>
       <version>21</version>
     </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+      <version>5.1.2</version>
+    </dependency>
+  <dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.2.3</version>
+  </dependency>
 <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-web</artifactId>
@@ -102,7 +112,13 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20230618</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
