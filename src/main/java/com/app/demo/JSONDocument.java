@@ -1,4 +1,4 @@
-package org.appproject.appproject;
+package com.app.demo;
 
 import java.util.HashMap;
 import java.util.Map;

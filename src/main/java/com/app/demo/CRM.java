@@ -1,4 +1,4 @@
-package org.appproject.appproject;
+package com.app.demo;
 
 /*
     USE THE FOLLOWING LINE IF YOU ARE GOING TO USE MongoDB FOR ANY PURPOSE:
@@ -12,19 +12,6 @@ class CRM {
 
     public static void main(String[] args) {
 
-        UserInputs userInput = new UserInputs();
-
-        int authenticationStatus = userInput.login();
-        switch (authenticationStatus) {
-            case 1:
-                userInput.userHomePage();
-                break;
-            case 2:
-                userInput.adminHomePage();
-                break;
-            default:
-                break;
-        }
 
     }
 
