@@ -3,10 +3,8 @@ package org.appproject.appproject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -314,5 +312,98 @@ public class AgiDB {
 
     }
 
+    public static String[] getPathsOfAllJSON(String directoryPath) {
+
+        // create a File object for the directory
+        File directory = new File(directoryPath);
+
+        // create a FilenameFilter to filter JSON files
+        FilenameFilter jsonFilter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().endsWith(".json");
+            }
+        };
+
+        // get the list of JSON files in the directory
+        String[] jsonFilePaths = directory.list(jsonFilter);
+
+        // if the directory is not empty, prepend the directory path to each file name
+        if (jsonFilePaths != null) {
+            for (int i = 0; i < jsonFilePaths.length; i++) {
+                jsonFilePaths[i] = directoryPath + File.separator + jsonFilePaths[i];
+            }
+        }
+
+        try {
+            return jsonFilePaths;
+        }catch (Exception e) {
+            System.out.println("No JSON files found in the directory.");
+        }
+        return new String[0];
+
+    }
+
+    public void delete(JSONDocument queryDocument) {
+
+        // all JSON files in the collection are stored in this object
+        JSONArray jsonFilesFromDirectory = loadJsonFilesFromDirectory(databasePath + "\\" + collectionName + "\\");
+
+        String[] filePaths = getPathsOfAllJSON(databasePath + "\\" + collectionName + "\\");
+
+        String filePath;
+
+        // iterate through all JSON files in the directory
+        for(int i = 0; i < jsonFilesFromDirectory.length(); i++) {
+
+            // store the ith object
+            JSONObject ithJsonObject = jsonFilesFromDirectory.getJSONObject(i);
+
+            // convert the ith JSON file to a JSON Document to be able to use with AgiDB
+            JSONDocument ithJsonDocument = new JSONDocument(ithJsonObject);
+
+            filePath = filePaths[i];
+
+            // array which stores all the keys in the JSON document object
+            String[] queryKeyArray = queryDocument.getKeys();
+
+            // variable which stores the boolean result of if the ith JSON document and input JSON document are equal
+            boolean isEqual = false;
+
+            /*
+                body of the comparing algorithm
+                reading the comments may not help in understanding how it works
+                try and work through it yourself
+            */
+
+            // iterate through each key of the key array
+            for (String queryKey : queryKeyArray) {
+                // will execute if the ithJsonDocument has the nth key from the key array
+                if (ithJsonDocument.keyExists(queryKey)) {
+                    /*
+                        comparing the value of the key of query document
+                        with the value of the key of ith JSON document
+                        store the boolean result
+                    */
+                    isEqual = (compareObjects(queryDocument.getValue(queryKey), ithJsonDocument.getValue(queryKey)));
+
+                    // if they are not equal, then break out the loop
+                    if (!isEqual)
+                        break;
+                }
+            }
+
+            // if they are equal, append the ith JSON document to the query result
+            if(isEqual) {
+                File fileToDelete = new File(filePath);
+                if (fileToDelete.delete()) {
+                    System.out.println("File deleted successfully: " + filePath);
+                } else {
+                    System.out.println("Failed to delete the file: " + filePath);
+                }
+            }
+
+        }
+
+    }
 
 }

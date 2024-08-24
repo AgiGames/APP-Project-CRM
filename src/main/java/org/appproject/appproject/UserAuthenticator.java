@@ -20,6 +20,9 @@ public class UserAuthenticator {
 
     private static String username = "";
     private static String password = "";
+    private static String registrationNumber = "";
+    private static String adminName = "";
+    private static String adminRegistrationNumber = "";
 
     /*
         implementation of the register() function
@@ -68,16 +71,20 @@ public class UserAuthenticator {
         Scanner loginScanner = new Scanner(System.in);
         System.out.print("Enter username: ");
         username = loginScanner.nextLine();
+        System.out.println("Enter your registration number: ");
+        registrationNumber = loginScanner.nextLine();
         System.out.print("Enter your password: ");
         password = loginScanner.nextLine();
+
 
         /*
             making a query document (JSON) to query to the database
             to check if document already exists in the database
             document contains username and password
         */
-        JSONDocument queryDocument = new JSONDocument("username", username);
+        JSONDocument queryDocument = new JSONDocument("username", username.toUpperCase());
         queryDocument.append("password", password);
+        queryDocument.append("registration_number", registrationNumber);
 
         /*
             read() function returns all JSON files that contain the input username and password
@@ -87,16 +94,32 @@ public class UserAuthenticator {
 
         if (relevantUsers.length == 0)
             return 0;
-        if (relevantUsers[0].getValue("role").equals("user"))
+        if (relevantUsers[0].getValue("role").equals("user")) { // if the role of whoever logins is user
+            // we store their admin's name and admin's registration number for future use
+            adminName = (String) relevantUsers[0].getValue("admin_name");
+            adminRegistrationNumber = (String) relevantUsers[0].getValue("admin_registration_number");
             return 1;
+        }
         return 2;
 
     }
 
     public static String getUserName() {
 
-        return username;
+        return username.toUpperCase();
 
+    }
+
+    public static String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public static String getAdminName() {
+        return adminName;
+    }
+
+    public static String getAdminRegistrationNumber() {
+        return adminRegistrationNumber;
     }
 
 }
