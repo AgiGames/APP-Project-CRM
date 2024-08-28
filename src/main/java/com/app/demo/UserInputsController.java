@@ -1,16 +1,13 @@
 package com.app.demo;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user-inputs")
 public class UserInputsController {
 
-    @GetMapping("/register-student")
+    @PostMapping("/register-student")
     public ResponseEntity<Boolean> registerStudent(@RequestParam String nameOfStudent,
                                                    @RequestParam String registrationNumberOfStudent,
                                                    @RequestParam String password,
@@ -22,7 +19,7 @@ public class UserInputsController {
 
     }
 
-    @GetMapping("/remove-student")
+    @PostMapping("/remove-student")
     public ResponseEntity<Boolean> removeStudent(@RequestParam String nameOfStudent,
                                                    @RequestParam String registrationNumberOfStudent,
                                                    @RequestParam String adminName,

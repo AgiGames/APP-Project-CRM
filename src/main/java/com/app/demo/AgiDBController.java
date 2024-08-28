@@ -1,16 +1,13 @@
 package com.app.demo;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/agi-db")
 public class AgiDBController {
 
-    @GetMapping("/write")
+    @PostMapping("/write")
     public ResponseEntity<Boolean> write(@RequestParam JSONDocument jsonDocument,
                                          @RequestParam String databasePath,
                                          @RequestParam String collectionName) {
