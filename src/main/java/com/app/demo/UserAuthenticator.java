@@ -45,6 +45,7 @@ public class UserAuthenticator {
         if (relevantUsers[0].getValue("role").equals("user")) { // if the role of whoever logins is user
             // we store their admin's name and admin's registration number for future use
             adminName = (String) relevantUsers[0].getValue("admin_name");
+            adminName = adminName.toUpperCase();
             adminRegistrationNumber = (String) relevantUsers[0].getValue("admin_registration_number");
             return 1;
         }
@@ -63,7 +64,7 @@ public class UserAuthenticator {
     }
 
     public String getAdminName() {
-        return adminName;
+        return adminName.toUpperCase();
     }
 
     public String getAdminRegistrationNumber() {

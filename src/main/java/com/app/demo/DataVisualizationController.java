@@ -7,26 +7,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/data-visualization")
 public class DataVisualizationController {
 
-    @PostMapping("/api/display-students")
-    public ResponseEntity<String> displayStudents(@RequestParam String adminName) {
+    @PostMapping("/display-students")
+    public ResponseEntity<String> displayStudents(@RequestParam String adminName,
+                                                  @RequestParam String adminRegistrationNumber) {
 
-        String result = DataVisualization.displayStudents(adminName);
+        String result = DataVisualization.displayStudents(adminName, adminRegistrationNumber);
         return ResponseEntity.ok(result);
 
     }
 
-    @PostMapping("/api/display-students-folder-from-admin")
-    public ResponseEntity<String> displayStudentsFolderFromAdmin(@RequestParam String adminName,
-                                                           @RequestParam String nameOfStudent,
-                                                           @RequestParam String registrationNumberOfStudent) {
+    @PostMapping("/display-student-folder-from-admin")
+    public ResponseEntity<String> displayStudentFolderFromAdmin(@RequestParam String adminName,
+                                                                 @RequestParam String adminRegistrationNumber,
+                                                                 @RequestParam String nameOfStudent,
+                                                                 @RequestParam String registrationNumberOfStudent) {
 
-        String result = DataVisualization.displayStudentFolderFromAdmin(adminName, nameOfStudent, registrationNumberOfStudent);
+        String result = DataVisualization.displayStudentFolderFromAdmin(adminName, adminRegistrationNumber, nameOfStudent, registrationNumberOfStudent);
         return ResponseEntity.ok(result);
 
     }
 
-    @PostMapping("/api/display-students-folder-from-path")
-    public ResponseEntity<String> displayStudentsFolderFromPath(@RequestParam String directoryPath) {
+    @PostMapping("/display-student-folder-from-path")
+    public ResponseEntity<String> displayStudentFolderFromPath(@RequestParam String directoryPath) {
 
         String result = DataVisualization.displayStudentFolderFromPath(directoryPath);
         return ResponseEntity.ok(result);

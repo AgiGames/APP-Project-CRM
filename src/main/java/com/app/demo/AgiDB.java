@@ -253,10 +253,7 @@ public class AgiDB {
     public boolean createDirectory() {
 
         File collectionDirectory = new File(databasePath + "\\" + collectionName + "\\");
-        if (!collectionDirectory.exists()) {
-            return collectionDirectory.mkdirs();
-        }
-        return false;
+        return  collectionDirectory.mkdirs();
 
     }
 
@@ -299,28 +296,31 @@ public class AgiDB {
         function to display the contents of the collection
     */
     public String displayDirectory() {
-
         File directory = new File(databasePath + "\\" + collectionName);
         StringBuilder fileContents = new StringBuilder();
 
-        // if the directory exists and the given path in fact leads to a directory
+        // check if the directory exists and is indeed a directory
         if (directory.exists() && directory.isDirectory()) {
-            String[] contents = directory.list(); // get all contents of the directory
+            File[] contents = directory.listFiles(); // get all contents of the directory
 
-            if (contents != null) { // if the contents array is not empty
-                for (String item : contents) { // print each item
-                    fileContents.append(item);
+            if (contents != null && contents.length > 0) { // if the contents array is not empty
+                for (File item : contents) { // iterate through each item
+                    if (item.isDirectory()) {
+                        fileContents.append("[Directory] ");
+                    } else {
+                        fileContents.append("[File] ");
+                    }
+                    fileContents.append(item.getName()); // append the name of the item
                     fileContents.append("\n");
                 }
             } else {
-                System.out.println("Failed to retrieve directory contents.");
+                fileContents.append("Directory is empty or failed to retrieve contents.");
             }
         } else {
-            System.out.println("Directory does not exist or is not a directory.");
+            fileContents.append("Directory does not exist or is not a directory.");
         }
 
         return fileContents.toString();
-
     }
 
     public static String[] getPathsOfAllJSON(String directoryPath) {

@@ -8,7 +8,7 @@ public class UserInputs {
     public static boolean registerStudent(String nameOfStudent, String registrationNumberOfStudent, String password, String adminName, String adminRegistrationNumber) {
 
         // the name of the folder of the student will contain the name of the student and their registration number
-        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
 
         /*
             we need to make a JSON document for the student's authentication and store it in
@@ -19,10 +19,10 @@ public class UserInputs {
         JSONDocument studentDetails = new JSONDocument("username", nameOfStudent.toUpperCase());
         studentDetails.append("registration_number", registrationNumberOfStudent);
         studentDetails.append("password", password);
-        String escapedPath = CRM.localDatabasePath + "\\" + adminName + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent;
+        String escapedPath = CRM.localDatabasePath + "\\" + adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent;
         escapedPath = escapedPath.replace("\\", "\\\\");
         studentDetails.append("personal_directory", escapedPath);
-        studentDetails.append("admin_name", adminName);
+        studentDetails.append("admin_name", adminName.toUpperCase());
         studentDetails.append("admin_registration_number", adminRegistrationNumber);
         studentDetails.append("role", "user");
 
@@ -30,9 +30,9 @@ public class UserInputs {
         boolean studentAccountMade = authenticationDB.write(studentDetails); // write the JSON into the userAuthentication collection
 
         // create the folder
-        boolean studentRegistered = studentDB.createDirectory();
+        studentDB.createDirectory();
 
-        return studentAccountMade && studentRegistered;
+        return studentAccountMade;
 
     }
 
@@ -44,7 +44,7 @@ public class UserInputs {
     public static boolean removeStudent(String nameOfStudent, String registrationNumberOfStudent, String adminName, String adminRegistrationNumber) {
 
         // the name of the folder of the student will contain the name of the student and their registration number
-        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
 
         // delete the folder
         boolean studentRemoved = studentDB.deleteDirectory();

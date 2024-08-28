@@ -7,16 +7,17 @@ import java.io.File;
 @Service
 public class DataVisualization {
 
-    public static String displayStudents(String adminName) {
+    public static String displayStudents(String adminName, String adminRegistrationNumber) {
 
-        AgiDB adminDB = new AgiDB(CRM.localDatabasePath, adminName + "\\" + "students");
+        AgiDB adminDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\" + "students");
+        System.out.println(adminDB.displayDirectory());
         return adminDB.displayDirectory();
 
     }
 
-    public static String displayStudentFolderFromAdmin(String adminName, String nameOfStudent, String registrationNumberOfStudent) {
+    public static String displayStudentFolderFromAdmin(String adminName, String adminRegistrationNumber, String nameOfStudent, String registrationNumberOfStudent) {
 
-        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
         return studentDB.displayDirectory();
 
     }

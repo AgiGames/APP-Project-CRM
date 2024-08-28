@@ -8,7 +8,7 @@ package com.app.demo;
 class CRM {
 
     // path to the local database
-    public static String localDatabasePath = "D:\\Education\\Java\\IntelliJProjects\\APP-Project\\database";
+    public static String localDatabasePath = "D:\\Education\\Java\\APP-Project-CRM\\database";
 
     public static void main(String[] args) {
 

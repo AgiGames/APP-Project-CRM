@@ -19,8 +19,8 @@ public class UserAuthenticatorController {
 
     @PostMapping("/login")
     public ResponseEntity<Integer> login(@RequestParam String username,
-                                  @RequestParam String registrationNumber,
-                                  @RequestParam String password) {
+                                         @RequestParam String registrationNumber,
+                                         @RequestParam String password) {
 
         Integer result = userAuthenticator.login(username, registrationNumber, password);
         return ResponseEntity.ok(result);
