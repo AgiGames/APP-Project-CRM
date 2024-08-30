@@ -1,10 +1,13 @@
 package com.app.demo;
 
+import org.springframework.scheduling.annotation.Async;
+
 public class UserInputs {
     /*
         function to register a student
         i.e. to make a separate folder for them in the database
      */
+    @Async
     public static boolean registerStudent(String nameOfStudent, String registrationNumberOfStudent, String password, String adminName, String adminRegistrationNumber) {
 
         // the name of the folder of the student will contain the name of the student and their registration number
@@ -41,6 +44,7 @@ public class UserInputs {
         i.e. to delete their separate folder in the database
         and to delete their authentication details
     */
+    @Async
     public static boolean removeStudent(String nameOfStudent, String registrationNumberOfStudent, String adminName, String adminRegistrationNumber) {
 
         // the name of the folder of the student will contain the name of the student and their registration number

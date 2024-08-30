@@ -9,10 +9,6 @@ class CRM {
 
     // path to the local database
     public static String localDatabasePath = "D:\\Education\\Java\\APP-Project-CRM\\database";
-
-    public static void main(String[] args) {
-
-
-    }
+    //public static String localDatabasePath = "s3:\\\\ai-2-crm\\database";
 
 }

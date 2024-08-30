@@ -1,8 +1,12 @@
 package com.app.demo;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 
 @Service
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserAuthenticator {
 
     /*
@@ -17,9 +21,9 @@ public class UserAuthenticator {
     private String adminName = "";
     private String adminRegistrationNumber = "";
 
-/*
-    implementation of the login() function
-*/
+    /*
+        implementation of the login() function
+    */
     public int login(String username_s, String registrationNumber_s, String password_s){
 
         username = username_s;
