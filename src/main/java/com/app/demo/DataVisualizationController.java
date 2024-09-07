@@ -17,12 +17,12 @@ public class DataVisualizationController {
     }
 
     @PostMapping("/display-student-folder-from-admin")
-    public ResponseEntity<String> displayStudentFolderFromAdmin(@RequestParam String adminName,
+    public ResponseEntity<String[]> displayStudentFolderFromAdmin(@RequestParam String adminName,
                                                                  @RequestParam String adminRegistrationNumber,
                                                                  @RequestParam String nameOfStudent,
                                                                  @RequestParam String registrationNumberOfStudent) {
 
-        String result = DataVisualization.displayStudentFolderFromAdmin(adminName, adminRegistrationNumber, nameOfStudent, registrationNumberOfStudent);
+        String[] result = DataVisualization.displayStudentFolderFromAdmin(adminName, adminRegistrationNumber, nameOfStudent, registrationNumberOfStudent);
         return ResponseEntity.ok(result);
 
     }

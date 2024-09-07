@@ -1,5 +1,6 @@
 package com.app.demo;
 
+import org.json.JSONArray;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,15 @@ public class DataVisualization {
     }
 
     @Async
-    public static String displayStudentFolderFromAdmin(String adminName, String adminRegistrationNumber, String nameOfStudent, String registrationNumberOfStudent) {
+    public static String[] displayStudentFolderFromAdmin(String adminName, String adminRegistrationNumber, String nameOfStudent, String registrationNumberOfStudent) {
 
-        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
-        return studentDB.displayDirectory();
+        JSONArray fileInformation = AgiDB.loadJsonFilesFromDirectory(CRM.localDatabasePath + "\\" + adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        String[] fileNames = new String[fileInformation.length()];
+        for(int i = 0; i < fileInformation.length(); i++) {
+            JSONDocument ithJsonDocument = new JSONDocument(fileInformation.getJSONObject(i));
+            fileNames[i] = (String) ithJsonDocument.getValue("fileName");
+        }
+        return fileNames;
 
     }
 

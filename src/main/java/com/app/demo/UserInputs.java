@@ -63,5 +63,24 @@ public class UserInputs {
 
     }
 
+    @Async
+    public static boolean uploadToDirectory(String nameOfStudent, String registrationNumberOfStudent, String adminName, String adminRegistrationNumber,
+                                            String fileName, byte[] fileContent) {
+
+        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        FileEntity fileEntity = new FileEntity(fileName, fileContent);
+        return studentDB.storeFile(fileEntity);
+
+    }
+
+    @Async
+    public static String getFileFromDirectory(String nameOfStudent, String registrationNumberOfStudent, String adminName, String adminRegistrationNumber,
+                                              String fileName) {
+
+        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        FileEntity fileEntity = studentDB.getFileContent(fileName);
+        return fileEntity.getBase64Content();
+
+    }
 
 }

@@ -27,34 +27,36 @@ public class UserAuthenticatorController {
 
     }
 
-    @GetMapping("/get-username")
-    public ResponseEntity<String> getUsername() {
+    @PostMapping("/get-username")
+    public ResponseEntity<String> getUsername(@RequestParam String registrationNumber) {
 
-        String result = userAuthenticator.getUserName();
+        String result = userAuthenticator.getUserName(registrationNumber);
+        System.out.println(result);
         return ResponseEntity.ok(result);
 
     }
 
-    @GetMapping("/get-registration-number")
-    public ResponseEntity<String> getRegistrationNumber() {
+    @PostMapping("/get-registration-number")
+    public ResponseEntity<String> getRegistrationNumber(@RequestParam String registrationNumber) {
 
         String result = userAuthenticator.getRegistrationNumber();
         return ResponseEntity.ok(result);
 
     }
 
-    @GetMapping("/get-admin-name")
-    public ResponseEntity<String> getAdminName() {
+    @PostMapping("/get-admin-name")
+    public ResponseEntity<String> getAdminName(@RequestParam String registrationNumber) {
 
-        String result = userAuthenticator.getAdminName();
+        String result = userAuthenticator.getAdminName(registrationNumber);
+        System.out.println(result);
         return ResponseEntity.ok(result);
 
     }
 
-    @GetMapping("/get-admin-registration-number")
-    public ResponseEntity<String> getAdminRegistrationNumber() {
+    @PostMapping("/get-admin-registration-number")
+    public ResponseEntity<String> getAdminRegistrationNumber(@RequestParam String registrationNumber) {
 
-        String result = userAuthenticator.getAdminRegistrationNumber();
+        String result = userAuthenticator.getAdminRegistrationNumber(registrationNumber);
         return ResponseEntity.ok(result);
 
     }

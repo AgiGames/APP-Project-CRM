@@ -57,9 +57,12 @@ public class UserAuthenticator {
 
     }
 
-    public String getUserName() {
+    public String getUserName(String registrationNumber) {
 
-        return username.toUpperCase();
+        JSONDocument studentDocument = new JSONDocument("registration_number", registrationNumber);
+        JSONDocument[] queryResults = new AgiDB(CRM.localDatabasePath, "userAuthentication").read(studentDocument);
+
+        return (String) queryResults[0].getValue("username");
 
     }
 
@@ -67,12 +70,22 @@ public class UserAuthenticator {
         return registrationNumber;
     }
 
-    public String getAdminName() {
-        return adminName.toUpperCase();
+    public String getAdminName(String registrationNumber) {
+
+        JSONDocument studentDocument = new JSONDocument("registration_number", registrationNumber);
+        JSONDocument[] queryResults = new AgiDB(CRM.localDatabasePath, "userAuthentication").read(studentDocument);
+
+        return (String) queryResults[0].getValue("admin_name");
+
     }
 
-    public String getAdminRegistrationNumber() {
-        return adminRegistrationNumber;
+    public String getAdminRegistrationNumber(String registrationNumber) {
+
+        JSONDocument studentDocument = new JSONDocument("registration_number", registrationNumber);
+        JSONDocument[] queryResults = new AgiDB(CRM.localDatabasePath, "userAuthentication").read(studentDocument);
+
+        return (String) queryResults[0].getValue("admin_registration_number");
+
     }
 
 }

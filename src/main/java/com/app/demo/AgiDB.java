@@ -81,6 +81,7 @@ public class AgiDB {
         // contains the textual representation of the JSON
         String json = writeDocument.toJson();
 
+        System.out.println(databasePath + "\\" + collectionName + "\\" + currentDocumentId + ".json");
         try (FileWriter file = new FileWriter(databasePath + "\\" + collectionName + "\\" + currentDocumentId + ".json")) {
             file.write(json); // writing the json file
             /*
@@ -411,6 +412,29 @@ public class AgiDB {
 
         }
 
+    }
+
+    public boolean storeFile(FileEntity fileEntity) {
+            // convert to JSONDocument and store in AgiDB
+            return write(fileEntity.toJSONDocument());
+
+    }
+
+    public FileEntity getFileContent(String fileName) {
+        // Create a query document to find the file by its name
+        JSONDocument queryDocument = new JSONDocument();
+        queryDocument.append("fileName", fileName);
+
+        // Query AgiDB
+        JSONDocument[] results = read(queryDocument);
+
+        if (results.length > 0) {
+            // Reconstruct the FileEntity from the first matching result
+            return FileEntity.fromJSONDocument(results[0]);
+        } else {
+            System.out.println("File not found");
+            return null;
+        }
     }
 
 }
