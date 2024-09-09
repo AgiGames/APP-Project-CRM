@@ -31,7 +31,6 @@ public class UserAuthenticatorController {
     public ResponseEntity<String> getUsername(@RequestParam String registrationNumber) {
 
         String result = userAuthenticator.getUserName(registrationNumber);
-        System.out.println(result);
         return ResponseEntity.ok(result);
 
     }
@@ -48,7 +47,6 @@ public class UserAuthenticatorController {
     public ResponseEntity<String> getAdminName(@RequestParam String registrationNumber) {
 
         String result = userAuthenticator.getAdminName(registrationNumber);
-        System.out.println(result);
         return ResponseEntity.ok(result);
 
     }

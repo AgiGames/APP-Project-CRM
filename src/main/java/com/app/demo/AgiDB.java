@@ -294,34 +294,33 @@ public class AgiDB {
     }
 
     /*
-        function to display the contents of the collection
+        function to display the directories of the collection
     */
-    public String displayDirectory() {
+    public String[] displayDirectories() {
         File directory = new File(databasePath + "\\" + collectionName);
-        StringBuilder fileContents = new StringBuilder();
+        ArrayList<String> fileContents = new ArrayList<>(0);
 
         // check if the directory exists and is indeed a directory
         if (directory.exists() && directory.isDirectory()) {
             File[] contents = directory.listFiles(); // get all contents of the directory
 
             if (contents != null && contents.length > 0) { // if the contents array is not empty
-                for (File item : contents) { // iterate through each item
-                    if (item.isDirectory()) {
-                        fileContents.append("[Directory] ");
+                for (int i = 0; i < contents.length; i++) { // iterate through each item
+                    if (contents[i].isDirectory()) {
+                        fileContents.add("[Directory] ");
                     } else {
-                        fileContents.append("[File] ");
+                        continue;
                     }
-                    fileContents.append(item.getName()); // append the name of the item
-                    fileContents.append("\n");
+                    fileContents.set(i, fileContents.get(i) + contents[i].getName()); // append the name of the item
                 }
             } else {
-                fileContents.append("Directory is empty or failed to retrieve contents.");
+                fileContents.add("Directory is empty or failed to retrieve contents.");
             }
         } else {
-            fileContents.append("Directory does not exist or is not a directory.");
+            fileContents.add("Directory does not exist or is not a directory.");
         }
 
-        return fileContents.toString();
+        return fileContents.toArray(new String[0]);
     }
 
     public static String[] getPathsOfAllJSON(String directoryPath) {
@@ -351,7 +350,7 @@ public class AgiDB {
 
     }
 
-    public void delete(JSONDocument queryDocument) {
+    public boolean delete(JSONDocument queryDocument) {
 
         // all JSON files in the collection are stored in this object
         JSONArray jsonFilesFromDirectory = loadJsonFilesFromDirectory(databasePath + "\\" + collectionName + "\\");
@@ -403,14 +402,11 @@ public class AgiDB {
             // if they are equal, append the ith JSON document to the query result
             if(isEqual) {
                 File fileToDelete = new File(filePath);
-                if (fileToDelete.delete()) {
-                    System.out.println("File deleted successfully: " + filePath);
-                } else {
-                    System.out.println("Failed to delete the file: " + filePath);
-                }
+                return fileToDelete.delete();
             }
 
         }
+        return false;
 
     }
 

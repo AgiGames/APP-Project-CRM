@@ -83,4 +83,15 @@ public class UserInputs {
 
     }
 
+    @Async
+    public static boolean deleteFileFromDirectory(String nameOfStudent, String registrationNumberOfStudent, String adminName, String adminRegistrationNumber,
+                                              String fileName) {
+
+        AgiDB studentDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        JSONDocument queryDocument = new JSONDocument("fileName", fileName);
+        JSONDocument toBeDeletedDocument = studentDB.read(queryDocument)[0];
+        return studentDB.delete(toBeDeletedDocument);
+
+    }
+
 }

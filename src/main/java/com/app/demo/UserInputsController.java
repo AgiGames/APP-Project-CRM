@@ -74,4 +74,17 @@ public class UserInputsController {
 
     }
 
+    @PostMapping("/delete-file-from-directory")
+    public ResponseEntity<Boolean> deleteFileFromDirectory(@RequestParam String nameOfStudent,
+                                                       @RequestParam String registrationNumberOfStudent,
+                                                       @RequestParam String adminName,
+                                                       @RequestParam String adminRegistrationNumber,
+                                                       @RequestParam String fileName) {
+
+        Boolean result = UserInputs.deleteFileFromDirectory(nameOfStudent, registrationNumberOfStudent,
+                adminName, adminRegistrationNumber, fileName);
+        return ResponseEntity.ok(result);
+
+    }
+
 }

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 public class DataVisualizationController {
 
     @PostMapping("/display-students")
-    public ResponseEntity<String> displayStudents(@RequestParam String adminName,
+    public ResponseEntity<String[]> displayStudents(@RequestParam String adminName,
                                                   @RequestParam String adminRegistrationNumber) {
 
-        String result = DataVisualization.displayStudents(adminName, adminRegistrationNumber);
+        String[] result = DataVisualization.displayStudents(adminName, adminRegistrationNumber);
         return ResponseEntity.ok(result);
 
     }

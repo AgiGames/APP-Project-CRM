@@ -10,11 +10,11 @@ import java.io.File;
 public class DataVisualization {
 
     @Async
-    public static String displayStudents(String adminName, String adminRegistrationNumber) {
+    public static String[] displayStudents(String adminName, String adminRegistrationNumber) {
 
         AgiDB adminDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\" + "students");
-        System.out.println(adminDB.displayDirectory());
-        return adminDB.displayDirectory();
+        System.out.println(adminDB.displayDirectories());
+        return adminDB.displayDirectories();
 
     }
 
