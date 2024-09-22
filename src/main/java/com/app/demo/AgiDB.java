@@ -33,14 +33,14 @@ public class AgiDB {
         collectionName = CName;
 
         // following block of code is to make the collection in the given path, if it doesn't exist
-        File collectionDirectory = new File(databasePath + "\\" + collectionName + "\\");
+        File collectionDirectory = new File(databasePath + "/" + collectionName + "/");
         // Check if the directory doesn't exist
         if (!collectionDirectory.exists()) {
             // Create the directory
             if (collectionDirectory.mkdirs()) {
                 System.out.println("Directory '" + collectionDirectory + "' created successfully!");
                 // make the options.txt file and write 0 as the currentDocumentID
-                try (FileWriter writer = new FileWriter(databasePath + "\\" + collectionName + "\\" + "options.txt")) {
+                try (FileWriter writer = new FileWriter(databasePath + "/" + collectionName + "/" + "options.txt")) {
                     writer.write("0\n");
                 } catch (IOException e) {
                     System.out.println("An error occurred making options.txt");
@@ -58,12 +58,12 @@ public class AgiDB {
             this is stored in the text file to prevent overwriting of data already existing
             with ID that is currently being used
         */
-        try (Scanner fileScanner = new Scanner(new File(databasePath + "\\" + collectionName + "\\" + "options.txt"))) {
+        try (Scanner fileScanner = new Scanner(new File(databasePath + "/" + collectionName + "/" + "options.txt"))) {
             while(fileScanner.hasNextLine()) {
                 currentDocumentId = Integer.parseInt(fileScanner.nextLine());
             }
         } catch (IOException e) {
-            System.out.println("options.txt does not exist in " + databasePath + "\\" + collectionName + "\\");
+            System.out.println("options.txt does not exist in " + databasePath + "/" + collectionName + "/");
         }
 
     }
@@ -81,8 +81,8 @@ public class AgiDB {
         // contains the textual representation of the JSON
         String json = writeDocument.toJson();
 
-        System.out.println(databasePath + "\\" + collectionName + "\\" + currentDocumentId + ".json");
-        try (FileWriter file = new FileWriter(databasePath + "\\" + collectionName + "\\" + currentDocumentId + ".json")) {
+        System.out.println(databasePath + "/" + collectionName + "/" + currentDocumentId + ".json");
+        try (FileWriter file = new FileWriter(databasePath + "/" + collectionName + "/" + currentDocumentId + ".json")) {
             file.write(json); // writing the json file
             /*
                 printing the document ID of the json file
@@ -97,7 +97,7 @@ public class AgiDB {
             */
             try {
                 // stores the path of the options.txt file
-                Path path = Paths.get(databasePath + "\\" + collectionName + "\\" + "options.txt");
+                Path path = Paths.get(databasePath + "/" + collectionName + "/" + "options.txt");
                 List<String> lines = Files.readAllLines(path);
 
                 /*
@@ -157,7 +157,7 @@ public class AgiDB {
     public JSONDocument[] read(JSONDocument queryDocument) {
 
         // all JSON files in the collection are stored in this object
-        JSONArray jsonFilesFromDirectory = loadJsonFilesFromDirectory(databasePath + "\\" + collectionName + "\\");
+        JSONArray jsonFilesFromDirectory = loadJsonFilesFromDirectory(databasePath + "/" + collectionName + "/");
 
         // JSON files which match the query will be stored in this object
         ArrayList<JSONDocument> queryResult = new ArrayList<>(0);
@@ -230,7 +230,10 @@ public class AgiDB {
         }
 
         // step 2: read each JSON file and add to JSONArray
+        int i = 0;
         for (File file : listOfFiles) {
+            System.out.println(i);
+            i++;
             if (file.isFile()) {
                 // convert each JSON file to a JSON object
                 try (FileInputStream fis = new FileInputStream(file)) {
@@ -253,7 +256,7 @@ public class AgiDB {
     */
     public boolean createDirectory() {
 
-        File collectionDirectory = new File(databasePath + "\\" + collectionName + "\\");
+        File collectionDirectory = new File(databasePath + "/" + collectionName + "/");
         return  collectionDirectory.mkdirs();
 
     }
@@ -264,7 +267,7 @@ public class AgiDB {
     */
     public boolean deleteDirectory() {
 
-        Path directory = Paths.get(databasePath + "\\" + collectionName);
+        Path directory = Paths.get(databasePath + "/" + collectionName);
 
         /*
             basically visits each file and deletes them before deleting them
@@ -297,7 +300,7 @@ public class AgiDB {
         function to display the directories of the collection
     */
     public String[] displayDirectories() {
-        File directory = new File(databasePath + "\\" + collectionName);
+        File directory = new File(databasePath + "/" + collectionName);
         ArrayList<String> fileContents = new ArrayList<>(0);
 
         // check if the directory exists and is indeed a directory
@@ -353,9 +356,9 @@ public class AgiDB {
     public boolean delete(JSONDocument queryDocument) {
 
         // all JSON files in the collection are stored in this object
-        JSONArray jsonFilesFromDirectory = loadJsonFilesFromDirectory(databasePath + "\\" + collectionName + "\\");
+        JSONArray jsonFilesFromDirectory = loadJsonFilesFromDirectory(databasePath + "/" + collectionName + "/");
 
-        String[] filePaths = getPathsOfAllJSON(databasePath + "\\" + collectionName + "\\");
+        String[] filePaths = getPathsOfAllJSON(databasePath + "/" + collectionName + "/");
 
         String filePath;
 

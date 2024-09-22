@@ -12,7 +12,7 @@ public class DataVisualization {
     @Async
     public static String[] displayStudents(String adminName, String adminRegistrationNumber) {
 
-        AgiDB adminDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\" + "students");
+        AgiDB adminDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "/" + "students");
         System.out.println(adminDB.displayDirectories());
         return adminDB.displayDirectories();
 
@@ -21,7 +21,7 @@ public class DataVisualization {
     @Async
     public static String[] displayStudentFolderFromAdmin(String adminName, String adminRegistrationNumber, String nameOfStudent, String registrationNumberOfStudent) {
 
-        JSONArray fileInformation = AgiDB.loadJsonFilesFromDirectory(CRM.localDatabasePath + "\\" + adminName.toUpperCase() + "-" + adminRegistrationNumber + "\\students\\" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
+        JSONArray fileInformation = AgiDB.loadJsonFilesFromDirectory(CRM.localDatabasePath + "/" + adminName.toUpperCase() + "-" + adminRegistrationNumber + "/students/" + nameOfStudent.toUpperCase() + "-" + registrationNumberOfStudent);
         String[] fileNames = new String[fileInformation.length()];
         for(int i = 0; i < fileInformation.length(); i++) {
             JSONDocument ithJsonDocument = new JSONDocument(fileInformation.getJSONObject(i));

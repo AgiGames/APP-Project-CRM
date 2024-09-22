@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20230618</version>
+			<version>20231013</version>
 		</dependency>
 	</dependencies>
 
@@ -55,6 +55,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.app.demo.DemoApplication</mainClass>
+					<outputFile>APP-Project</outputFile>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
