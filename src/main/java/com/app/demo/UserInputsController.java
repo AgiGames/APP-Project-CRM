@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Base64;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/user-inputs")
 public class UserInputsController {
 
