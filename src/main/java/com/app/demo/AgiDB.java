@@ -308,13 +308,10 @@ public class AgiDB {
             File[] contents = directory.listFiles(); // get all contents of the directory
 
             if (contents != null && contents.length > 0) { // if the contents array is not empty
-                for (int i = 0; i < contents.length; i++) { // iterate through each item
-                    if (contents[i].isDirectory()) {
-                        fileContents.add("[Directory] ");
-                    } else {
-                        continue;
+                for (File content : contents) { // iterate through each item
+                    if (content.isDirectory()) {
+                        fileContents.add("[Directory] " + content.getName());
                     }
-                    fileContents.set(i, fileContents.get(i) + contents[i].getName()); // append the name of the item
                 }
             } else {
                 fileContents.add("Directory is empty or failed to retrieve contents.");

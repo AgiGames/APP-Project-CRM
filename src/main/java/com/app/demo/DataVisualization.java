@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Arrays;
 
 @Service
 public class DataVisualization {
@@ -13,7 +14,7 @@ public class DataVisualization {
     public static String[] displayStudents(String adminName, String adminRegistrationNumber) {
 
         AgiDB adminDB = new AgiDB(CRM.localDatabasePath, adminName.toUpperCase() + "-" + adminRegistrationNumber + "/" + "students");
-        System.out.println(adminDB.displayDirectories());
+        System.out.println(Arrays.toString(adminDB.displayDirectories()));
         return adminDB.displayDirectories();
 
     }
