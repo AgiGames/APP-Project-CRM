@@ -1,9 +1,7 @@
 package org.appproject.appproject;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.*;
-
 
 // class that represents a collection of data in the database
 public class AgiDB {
