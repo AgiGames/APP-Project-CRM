@@ -1,4 +1,4 @@
-# APP-Project-CRM
+# CRM-Backend
 
 This project is designed for the second-year Computer Science and Engineering (CSE) curriculum.
 
